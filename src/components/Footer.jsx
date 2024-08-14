@@ -9,24 +9,24 @@ export default function Footer() {
         <div className='col-span-1' />
         <div className="col-span-12 md:col-span-4">
           <h1 className="pb-5">I will be with you in your special day!</h1>
-          <div className="flex space-x-5">
-            <FaFacebook />
-            <FaInstagramSquare />
+          <div className="flex space-x-5 justify-center">
+            <FaFacebook size={20}/>
+            <FaInstagramSquare size={20}/>
           </div>
         </div>
         <div className="flex flex-col col-span-12 md:col-span-2 mt-5 md:mt-0">
           <h1 className="font-bold pb-2">Page</h1>
-          <Link to="aboutme" smooth={true} duration={1000} className="cursor-pointer">
+          <Link to="aboutme" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
             <span>About me</span>
           </Link>
-          <Link to="colab" smooth={true} duration={1000} className="cursor-pointer">
+          <Link to="colab" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
             <span>Colaborators</span>
           </Link>
-          <Link to="feedback" smooth={true} duration={1000} className="cursor-pointer">
+          <Link to="feedback" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
             <span>Feedback</span>
           </Link>
-          <Link to="highlight" smooth={true} duration={1000} className="cursor-pointer">
-            <span>Highlight</span>
+          <Link to="gallery" smooth={true} duration={1000} offset={-30} className="cursor-pointer">
+            <span>Gallery</span>
           </Link>
         </div>
         <div className="flex flex-col col-span-12 md:col-span-2 mt-5 md:mt-0">
