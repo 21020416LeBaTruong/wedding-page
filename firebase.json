@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "landing-page-0302",
+    "site": "jos-portfolio",
     "public": "build",
     "ignore": [
       "firebase.json",

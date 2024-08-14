@@ -75,6 +75,38 @@ const gallery = [
 ];
 
 function App() {
+  const words = ["I WILL BE WITH YOU IN YOUR SPECIAL DAY!", "LET'S MAKE PARTY!", "HAPPY WEDDING!!!"];
+  const [currentWord, setCurrentWord] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [i, setI] = useState(0);
+  const [j, setJ] = useState(0);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      let updatedWord = currentWord;
+      if (isDeleting) {
+        updatedWord = currentWord.substring(0, j - 1);
+        setJ(j - 1);
+        if (j === 0) {
+          setIsDeleting(false);
+          setI((prev) => (prev + 1) % words.length);
+        }
+      } else {
+        updatedWord = words[i].substring(0, j + 1);
+        setJ(j + 1);
+        if (j === words[i].length) {
+          setTimeout(() => {
+            setIsDeleting(true);
+          }, 5000); // 5 seconds delay before starting to delete
+        }
+      }
+      setCurrentWord(updatedWord);
+    };
+
+    const timeoutId = setTimeout(handleTyping, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentWord, isDeleting, i, j, words]);
   useEffect(() => {
     const handleScroll = () => {
       const header = document.getElementById("fade-text");
@@ -154,21 +186,21 @@ function App() {
     >
       <Header />
       <div id="home" class="ParallaxVideo">
-        <div className="relative h-screen">
+        <div className="relative h-screen ">
           <video
             autoPlay
             muted
             loop
-            className="w-1/2 h-1/2 md:w-full md:h-full object-cover"
+            className="w-full h-full object-cover"
           >
             <source src={video} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 flex justify-center h-1/3 md:h-full items-center p-10">
+          <div className="absolute inset-0 flex justify-center h-5/6 items-center p-10">
             <h1
               className="text-white text-4xl md:text-6xl transition-opacity duration-0"
               id="fade-text"
             >
-              I will be with you in your special day!
+              {currentWord}
             </h1>
           </div>
         </div>
@@ -190,14 +222,14 @@ function App() {
             data-aos-duration="500"
             data-aos-delay="0"
           >
-            <img src={addition} alt="addition" className="md:w-40 w-20 " />
-            <h1 className="md:text-4xl text-3xl font-bold transform transition duration-500 w-full font-abcd bg-clip-text text-transparent bg-golden-gradient">
+            <img src={addition} alt="addition" className="md:w-40 w-16 " />
+            <h1 className="md:text-4xl text-2xl font-bold transform transition duration-500 w-full font-abcd bg-clip-text text-transparent bg-golden-gradient">
               `WE CAPTURE THE MOMENT '
             </h1>
             <img
               src={addition}
               alt="addition"
-              className="md:w-40 w-20 transform scale-x-[-1] " // Adjust size as needed
+              className="md:w-40 w-16 transform scale-x-[-1] " // Adjust size as needed
             />
           </div>
           <p
@@ -282,7 +314,7 @@ function App() {
             />
             <div
               className="flex flex-col"
-              data-aos="fade-left"
+              data-aos="fade-right"
               data-aos-duration="1000"
               data-aos-delay="0"
             >
@@ -298,8 +330,8 @@ function App() {
         <div className="flex flex-col justify-center items-center p-10 mx-10 lg:mx-32 text-white bg-black opacity-80">
           <div className="w-full md:w-1/3 text-center pb-10">
             <h1
-              className="font-bold text-3xl font-fb"
-              data-aos="fade-left"
+              className="font-bold text-2xl font-fb"
+              data-aos="fade-right"
               data-aos-duration="500"
               data-aos-delay="200"
             >
@@ -307,7 +339,7 @@ function App() {
             </h1>
             <p
               className="font-fb"
-              data-aos="fade-left"
+              data-aos="fade-right"
               data-aos-duration="500"
               data-aos-delay="200"
             >
@@ -322,7 +354,7 @@ function App() {
             {["Car", "Flower", "MC", "Decorating"].map((service, index) => (
               <div
                 key={index}
-                data-aos="fade-left"
+                data-aos="fade-right"
                 data-aos-duration="500"
                 data-aos-delay="200"
                 className="font-fb"
@@ -411,14 +443,12 @@ function App() {
         </div>
         <div className="pt-10 pb-20 px-10 lg:px-32 mx-auto">
           <Swiper
+            
             breakpoints={{
-              550: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              710: {
+
+              340: {
                 slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 20,
               },
               950: {
                 slidesPerView: 4,
@@ -443,7 +473,7 @@ function App() {
             {gallery.map((img, index) => (
               <SwiperSlide key={index} className="mb-10">
                 <div>
-                  <img src={img.image} alt="img" className="max-w-[200px]" />
+                  <img src={img.image} alt="img" className="w-[100px] md:w-[200px]" />
                 </div>
               </SwiperSlide>
             ))}
@@ -456,10 +486,10 @@ function App() {
           data-aos-duration="500"
           data-aos-delay="200"
         >
-          <div className="relative px-14 pb-10 pt-5 border border-gray-200 rounded-lg bg-[#E2CAA0]">
+          <div className="relative px-2 sm:px-5 md:px-14 pb-10 pt-5 border border-gray-200 rounded-lg bg-[#E2CAA0]">
             <h1
               id="feedback"
-              className="font-bold text-3xl text-white text-center pb-5"
+              className="font-bold text-2xl text-white text-center pb-5"
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="0"
@@ -471,20 +501,19 @@ function App() {
             <img
               src={flowerImage}
               alt="Flower"
-              className="absolute -top-20 -right-14 w-56 h-56 z-10" // Adjust size as needed
+              className="absolute md:-top-20 -right-10 -top-16 w-32 md:w-56 md:h-56 z-10" // Adjust size as needed
               style={{ transform: "rotate(0deg)" }} // No rotation for the top-right flower
             />
-            <div className="md:flex md:space-x-10 space-y-10 md:space-y-0">
+            <div className="md:flex md:space-x-10 space-y-2 sm:space-y-5 md:space-y-0">
               {comments.map((object, index) => (
-                <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-                  <div className="flex items-start">
+                <div className="bg-gray-100 md:p-6 p-2 rounded-lg shadow-lg">
+                  <div className="flex items-center">
                     <div className="relative">
                       <img
-                        className="w-16 h-16 rounded-full border-4 border-[#E2CAA0]"
+                        className="min-w-12 rounded-full border-4 border-[#E2CAA0]"
                         src={avt}
                         alt="User"
                       />
-                      <div className="absolute top-0 left-0 w-full h-full bg-[#E2CAA0] rounded-full -z-10"></div>
                     </div>
                     <div className="ml-4 flex-grow">
                       <div className="flex items-center">
@@ -516,7 +545,7 @@ function App() {
             <img
               src={flowerImage}
               alt="Flower"
-              className="absolute -bottom-14 -left-14 w-44 h-44 z-10"
+              className="absolute md:-bottom-14 -bottom-20 -left-14 w-44 h-44 z-10"
               style={{ transform: "rotate(180deg)" }}
             />
           </div>

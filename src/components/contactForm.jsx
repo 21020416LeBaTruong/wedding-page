@@ -22,10 +22,10 @@ const ContactForm = () => {
 
   return (
     <div id="contact" className="flex justify-center items-center pb-10 px-10 lg:px-32">
-        <div className="flex bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden" style={{ width: '800px' }}>
+        <div className="md:flex bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden" style={{ width: '800px' }}>
         {/* Contact Information Section */}
-            <div className="w-1/3 bg-[#E2CAA0] text-white p-8">
-                <h2 className="text-2xl font-semibold mb-4">Contact me</h2>
+            <div className="md:w-1/3 bg-[#E2CAA0] text-white p-8">
+                <h2 className="text-2xl font-bold mb-4">Contact me</h2>
                 <ul className="space-y-4">
                 <div className='flex items-center justify-start space-x-2'>
                     <FaAddressBook />
@@ -65,7 +65,7 @@ const ContactForm = () => {
                 </div>
             </div>
             {/* Contact Form Section */}
-            <div className="w-2/3 p-8">
+            <div className="md:w-2/3 p-8">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-800">Get in Touch</h2>
                 <p className="text-gray-600 mb-6">Feel free to drop us a line below!</p>
                 <form ref={form} onSubmit={sendEmail} className="space-y-4">
