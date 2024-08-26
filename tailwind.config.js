@@ -23,6 +23,7 @@ module.exports = {
         'dancing' :["Dancing Script", "cursive"],
         'feedback' :["Playwrite CU", "cursive"],
         'fb': ["Comic Neue", "cursive"],
+        'intro': ["The Nautigal", "cursive"]
       },
       scrollBehavior: {
         smooth: 'smooth',

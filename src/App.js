@@ -28,7 +28,8 @@ import addition from "./img/addition.png";
 import "aos/dist/aos.css";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import Timeline from "./components/timeline";
-
+import translations from "../src/components/translations";
+import { GlobeAltIcon } from "@heroicons/react/outline";
 const comments = [
   {
     comment:
@@ -75,12 +76,15 @@ const gallery = [
 ];
 
 function App() {
-  const words = ["I WILL BE WITH YOU IN YOUR SPECIAL DAY!", "LET'S MAKE PARTY!", "HAPPY WEDDING!!!"];
-  const [currentWord, setCurrentWord] = useState("");
+  const [language, setLanguage] = useState("vi"); // 'en' cho tiếng Anh, 'vi' cho tiếng Việt
+
+  const toggleLanguage = () => {
+    setLanguage((prevLanguage) => (prevLanguage === "en" ? "vi" : "en"));
+  };
+  const [currentWord, setCurrentWord] = useState(translations[language].type);
   const [isDeleting, setIsDeleting] = useState(false);
   const [i, setI] = useState(0);
   const [j, setJ] = useState(0);
-
   useEffect(() => {
     const handleTyping = () => {
       let updatedWord = currentWord;
@@ -89,12 +93,12 @@ function App() {
         setJ(j - 1);
         if (j === 0) {
           setIsDeleting(false);
-          setI((prev) => (prev + 1) % words.length);
+          setI((prev) => (prev + 1) % translations[language].type.length);
         }
       } else {
-        updatedWord = words[i].substring(0, j + 1);
+        updatedWord = translations[language].type[i].substring(0, j + 1);
         setJ(j + 1);
-        if (j === words[i].length) {
+        if (j === translations[language].type[i].length) {
           setTimeout(() => {
             setIsDeleting(true);
           }, 5000); // 5 seconds delay before starting to delete
@@ -106,7 +110,7 @@ function App() {
     const timeoutId = setTimeout(handleTyping, 100);
 
     return () => clearTimeout(timeoutId);
-  }, [currentWord, isDeleting, i, j, words]);
+  }, [currentWord, isDeleting, i, j, translations[language].type]);
   useEffect(() => {
     const handleScroll = () => {
       const header = document.getElementById("fade-text");
@@ -142,7 +146,6 @@ function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const totalPages = Math.ceil(images.length / itemsPerPage);
   const handleClose = (e) => {
     if (e.target.id === "wrapper") {
       closeModal();
@@ -157,7 +160,6 @@ function App() {
     setSelectedImage(null);
     setIsModalOpen(false);
   };
-  const [currentIndex, setCurrentIndex] = useState(1);
   const prevSlide = () => {
     let index = images.indexOf(selectedImage);
     if (index - 1 < 0) index = images.length;
@@ -167,9 +169,6 @@ function App() {
     let index = images.indexOf(selectedImage);
     if (index + 1 >= images.length) index = -1;
     setSelectedImage(images[index + 1]);
-  };
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
   };
 
   // Get current images
@@ -185,6 +184,26 @@ function App() {
       onClick={handleClose}
     >
       <Header />
+      <button
+      onClick={toggleLanguage}
+      className="fixed bottom-10 right-10 z-50 flex items-center justify-center p-2 bg-gray-500 text-white rounded-full hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-500 ease-in-out"
+    >
+      <span
+        className={`mr-2 transform transition-transform duration-500 ${
+          language === "en" ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+        }`}
+      >
+        EN
+      </span>
+      <span
+        className={`mr-2 transform transition-transform duration-500 ${
+          language === "vi" ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+        }`}
+      >
+        VI
+      </span>
+      <GlobeAltIcon className="h-6 w-6" />
+    </button>
       <div id="home" class="ParallaxVideo">
         <div className="relative h-screen ">
           <video
@@ -206,99 +225,72 @@ function App() {
         </div>
       </div>
 
-      <div className="bg-white">
+      <div className="bg-gray-100">
         <div className="flex flex-col items-center space-y-5 p-10">
-          <img
-            src={top}
-            alt="top"
-            className="md:w-1/2 w-4/5 z-10"
-            data-aos="fade-zoom-in"
-            data-aos-duration="500"
-            data-aos-delay="0"
-          />
+          
           <div
             className="flex items-center"
             data-aos="fade-zoom-in"
             data-aos-duration="500"
             data-aos-delay="0"
           >
-            <img src={addition} alt="addition" className="md:w-40 w-16 " />
-            <h1 className="md:text-4xl text-2xl font-bold transform transition duration-500 w-full font-abcd bg-clip-text text-transparent bg-golden-gradient">
-              `WE CAPTURE THE MOMENT '
+            <h1 className="md:text-7xl text-5xl font-bold transform transition duration-500 w-full font-intro ">
+              {translations[language].welcome}
             </h1>
-            <img
-              src={addition}
-              alt="addition"
-              className="md:w-40 w-16 transform scale-x-[-1] " // Adjust size as needed
-            />
+            
           </div>
+          
           <p
-            className="justify-center font-bold text-center text-xl w-full md:w-3/4 space-y-2 font-dancing bg-clip-text text-transparent bg-golden-gradient"
+            className="justify-center font-bold text-center text-xl w-full md:w-3/4 space-y-2 font-dancing "
             data-aos="fade-zoom-in"
             data-aos-duration="500"
             data-aos-delay="200"
           >
-            Hello, thank you for visiting.
+            {translations[language].intro.p1}
             <br />
             <div
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="300"
-              className="bg-clip-text font-bold text-transparent bg-golden-gradient"
+              className="font-bold"
             >
-              My name is Duc Quang, but you can also call me Jos (Joshep). As a
-              wedding MC, I strive to go beyond clichés and templates. I want to
-              tell your story and connect everyone at the event. To do this,
-              I’ll ask questions and learn about you to uncover and share your
-              unique and interesting aspects with your loved ones.
+              {translations[language].intro.p2}
               <br />
             </div>
             <div
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="400"
-              className="bg-clip-text font-bold text-transparent bg-golden-gradient"
+              className="font-bold "
             >
-              I am committed to creating a personalized and memorable wedding
-              ceremony for you. Whether you want a more complex event or a grand
-              and emotional ceremony, I am here to fulfill your wishes. I will
-              adjust to meet your standards and desires because it’s your day
-              and your story.
+              {translations[language].intro.p3}
               <br />
             </div>
             <div
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="500"
-              className="bg-clip-text font-bold text-transparent bg-golden-gradient"
+              className="font-bold "
             >
-              There are many things to prepare for such a special day, but don’t
-              worry. I am here not only as an MC but also to offer advice and
-              support if you encounter any difficulties. My goal is for you to
-              look beautiful, feel relaxed, and fully experience the emotions of
-              your special day without unnecessary stress.
+              {translations[language].intro.p4}
               <br />
             </div>
             <div
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="600"
-              className="bg-clip-text font-bold text-transparent bg-golden-gradient"
+              className="font-bold "
             >
-              I look forward to working with you to create an unforgettable
-              wedding ceremony. Please contact me!
+              {translations[language].intro.p5}
             </div>
           </p>
-          {/* <img src={logo2} className="w-16" alt="Logo" data-aos="fade-zoom-in"
-              data-aos-duration="500"
-              data-aos-delay="200"/> */}
           <img
-            className="md:w-2/3 w-3/4"
-            src={bottom}
-            alt="bottom"
+            src={top}
+            alt="top"
+            className="md:w-1/6 w-3/12 z-10 pl-5"
             data-aos="fade-zoom-in"
             data-aos-duration="500"
-            data-aos-delay="200"
+            data-aos-delay="0"
           />
         </div>
         <div id="aboutme" className="pb-5"></div>
@@ -318,14 +310,14 @@ function App() {
               data-aos-duration="1000"
               data-aos-delay="0"
             >
-              <h1 className="font-bold text-2xl font-abcd">ABOUT ME</h1>
-              <h1 className="font-bold text-2xl">Trần Đức Quang</h1>
-              <span>Năm sinh: ...</span>
-              <span>Tốt nghiệp: ....</span>
+              <h1 className="font-bold text-2xl"></h1>
+              <h1 className="font-bold text-5xl font-intro">{translations[language].name}</h1>
+              <span>{translations[language].DOB}</span>
+              <span>{translations[language].Education}</span>
             </div>
           </div>
         </div>
-        <Timeline />
+        <Timeline language={language}/>
         <div id="service"></div>
         <div className="flex flex-col justify-center items-center p-10 mx-10 lg:mx-32 text-white bg-black opacity-80">
           <div className="w-full md:w-1/3 text-center pb-10">
@@ -335,7 +327,7 @@ function App() {
               data-aos-duration="500"
               data-aos-delay="200"
             >
-              ~ SERVICES ~
+              {translations[language].SV}
             </h1>
             <p
               className="font-fb"
@@ -343,15 +335,11 @@ function App() {
               data-aos-duration="500"
               data-aos-delay="200"
             >
-              At Capturer, we offer a range of professional photography services
-              tailored to meet your unique needs. With a commitment to
-              excellence and creativity, we strive to exceed your expectations,
-              delivering captivating visuals that tell your story with
-              authenticity and passion.
+              {translations[language].service.p1}
             </p>
           </div>
           <div className="flex flex-col text-center md:flex-row justify-center space-y-5 md:space-y-0 md:space-x-10 px-5 md:px-20">
-            {["Car", "Flower", "MC", "Decorating"].map((service, index) => (
+            {[translations[language].service.p6, translations[language].service.p7, translations[language].service.p8, translations[language].service.p9].map((service, index) => (
               <div
                 key={index}
                 data-aos="fade-right"
@@ -363,10 +351,10 @@ function App() {
                 <p className="text-sm">
                   {
                     [
-                      "Experience the thrill of the road with our premium car rental service. Luxury, comfort, and style—drive your dream today.",
-                      "Bloom with beauty. Our exquisite floral arrangements bring elegance and freshness to any occasion. Order your perfect bouquet now.",
-                      "Elevate your event with our professional MC services. Engaging, charismatic, and experienced—let us make your occasion unforgettable.",
-                      "Transform spaces with our stunning decor solutions. From intimate gatherings to grand celebrations, we craft environments that captivate and inspire.",
+                      translations[language].service.p1,
+                      translations[language].service.p2,
+                      translations[language].service.p3,
+                      translations[language].service.p4
                     ][index]
                   }
                 </p>
@@ -378,7 +366,7 @@ function App() {
           id="gallery"
           className="font-bold text-2xl text-gray-500 mb-4 pt-10"
         >
-          GALLERY
+          {translations[language].gallery}
         </h1>
         <div className="flex items-center justify-center">
           <div className="flex flex-col items-center justify-center">
@@ -494,7 +482,7 @@ function App() {
               data-aos-duration="500"
               data-aos-delay="0"
             >
-              Feedback
+              {translations[language].feedback}
             </h1>
 
             {/* Top-right flower image */}
@@ -552,7 +540,7 @@ function App() {
           <div className="py-20">
             <div className="text-center bg-gray-100 content-around rounded-lg p-5">
               <div id="colab" className="text-gray-500 mb-5 font-bold text-2xl">
-                Colaborators
+                {translations[language].colab}
               </div>
               <div className="flex flex-wrap justify-around mx-5 md:mx-20">
                 {[logo1, logo1, logo1, logo1].map((logo, index) => (
@@ -567,8 +555,8 @@ function App() {
             </div>
           </div>
         </div>
-        <ContactForm />
-        <Footer />
+        <ContactForm language={language} />
+        <Footer language={language}/>
       </div>
     </div>
   );
