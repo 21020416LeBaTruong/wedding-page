@@ -1,9 +1,9 @@
 import React, { useRef} from 'react';
 import emailjs from 'emailjs-com';
-import { FaAddressBook } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FaSquarePhone } from 'react-icons/fa6';
 import translations from './translations';
+import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 const ContactForm = ({ language}) => {
 
   const form = useRef();
@@ -23,7 +23,7 @@ const ContactForm = ({ language}) => {
 
   return (
     <div id="contact" className="flex justify-center items-center pb-10 px-10 lg:px-32">
-        <div className="md:flex bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden" style={{ width: '800px' }}>
+        <div className="md:flex bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden " style={{ width: '1200px' }}>
         {/* Contact Information Section */}
             <div className="md:w-1/3 bg-[#E2CAA0] text-white p-8">
                 <h2 className="text-2xl font-bold mb-4">{translations[language].contact.p1}</h2>
@@ -45,6 +45,18 @@ const ContactForm = ({ language}) => {
                     <li className=''>
                     0948972983
                     </li>
+                </div>
+                <div className='flex items-center justify-start space-x-2'>
+                    <FaFacebook />
+                    <a href="https://www.facebook.com/jostrann" target="blank">
+                    Jos Trần Đức Quang
+                    </a>
+                </div>
+                <div className='flex items-center justify-start space-x-2'>
+                    <FaInstagramSquare />
+                    <a href="https://www.instagram.com/jos.inlovestorry/" target="blank">
+                    Josinlove
+                    </a>
                 </div>
                 </ul>
                 <div className="mt-6 flex space-x-4">

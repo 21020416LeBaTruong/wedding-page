@@ -46,8 +46,8 @@ export default function Footer({language}) {
           <h1 className="font-bold pb-2">{translations[language].footer.p12}</h1>
           <span>{translations[language].footer.p13}</span>
           <span>Mail: mcjosquang@gmail.com</span>
-          <a href="https://www.facebook.com/jostrann">FB: Jos Trần Đức Quang</a>
-          <a href="https://www.instagram.com/jos.inlovestorry/">IG: Josinlove</a>
+          <a href="https://www.facebook.com/jostrann" target="blank">FB: Jos Trần Đức Quang</a>
+          <a href="https://www.instagram.com/jos.inlovestorry/" target="blank">IG: Josinlove</a>
         </div>
         <div className='col-span-1' />
       </div>

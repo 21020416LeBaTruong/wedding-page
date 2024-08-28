@@ -30,6 +30,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import Timeline from "./components/timeline";
 import translations from "../src/components/translations";
 import { GlobeAltIcon } from "@heroicons/react/outline";
+import arrow from './img/arrow.png'
 const comments = [
   {
     comment:
@@ -556,6 +557,12 @@ function App() {
           </div>
         </div>
         <ContactForm language={language} />
+        <div className="flex justify-center pb-10 px-10 relative right-5">
+          <img src={arrow} alt="arrow" className="relative -top-3 -left-2 md:w-[80px] w-[40px] md:h-[40px] h-[20px]"/>
+          <a href="" target="blank">
+            <button className="p-2 border border-gray bg-[#E2CAA0] rounded-lg transition duration-500 ease-in-out transform hover:scale-105 hover:bg-[#e2b15e]">{translations[language].question}</button>
+          </a>
+        </div>
         <Footer language={language}/>
       </div>
     </div>

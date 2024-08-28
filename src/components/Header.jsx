@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <div>
-      <div className={`fixed top-0 left-0 w-full transition-all shadow-lg duration-500 ${isScrolled || isOpen ? 'bg-gray-200' : 'bg-transparent'} z-50`}>
+      <div className={`fixed top-0 left-0 w-full transition-all duration-500 ${isScrolled || isOpen ? 'bg-gray-200' : 'bg-transparent'} z-50`}>
         <div className="flex justify-between items-center p-2 max-w-6xl mx-auto">
           <h1 className={`font-bold text-2xl ${isScrolled || isOpen ? 'text-black' : 'text-white'}`}>LOGO</h1>
           <div className="hidden md:flex md:justify-center">

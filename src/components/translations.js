@@ -106,6 +106,7 @@ const translations = {
             animation: "fade-up",
           },
       ],
+      question:"If you have any questions, please let me know. (˶ᵔ ᵕ ᵔ˶)"
     },
     vi: {
       welcome: "Cùng bắt trọn từng khoảnh khắc",
@@ -211,8 +212,9 @@ const translations = {
             color: "bg-teal-500",
             animation: "fade-up"
           },
-      ]
-    },
+      ],
+      question:"Nếu bạn có bất cứ câu hỏi gì, xin hãy cho tôi biết. (˶ᵔ ᵕ ᵔ˶)"
+    }
   };
   
   export default translations;
