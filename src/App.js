@@ -40,33 +40,33 @@ const questions = [
     question:
       "Will you meet up with us before we make the decision to book you in?",
     answer:
-      "Most definitely. Please let me know and I will send you my portfolio, sample videos, and photos of previous ceremonies.",
+      "ABC",
   },
   {
     question:
       "How early do we need to confirm our booking and pay the non-refundable 50% deposit?",
     answer:
-      "To ensure availability, it's best to confirm your booking and pay the deposit as soon as possible.",
+      "ABC",
   },
   {
     question: "How long will the ceremony and wedding reception go for?",
     answer:
-      "The duration of the ceremony and reception depends on your preferences and the specific plans for your event.",
+      "ABC",
   },
   {
     question: "Can we see a sample ceremony or video?",
     answer:
-      "Most definitely. Please let me know and I will send you my portfolio, sample videos, and photos of previous ceremonies.",
+      "ABC",
   },
   {
     question: "Will you travel?",
     answer:
-      "Currently, I’m based in Da Nang, Viet Nam but am keen to travel anywhere you want me to go. Some additional charges may apply to cover my travel costs, but we can chat about that.",
+      "ABC",
   },
   {
     question: "Can you host games during reception?",
     answer:
-      "Yes, I can host games during the reception to ensure all guests are engaged and have a good time.",
+      "ABC",
   },
 ];
 
@@ -254,7 +254,7 @@ function App() {
         <GlobeAltIcon className="h-6 w-6" />
       </button>
 
-      {isPlaying ? <img src={note} alt="note" className="fixed bottom-20 right-24 z-20 w-20"/> : <></>}
+      <img src={note} alt="note" className={`${isPlaying ? "opacity-100" : "opacity-0"} transition duration-1000 fixed bottom-20 right-24 z-20 w-20`}/>
       <button
         onClick={toggleAudio}
         className={`fixed bottom-10 right-32 z-10 p-3 rounded-full 
@@ -273,9 +273,6 @@ function App() {
             <h1
               className="text-white text-4xl md:text-6xl transition-opacity duration-0"
               id="fade-text"
-              // data-aos="fade-up"
-              // data-aos-duration="1500"
-              // data-aos-delay="1000"
             >
               {translations[language].type[2]}
             </h1>
@@ -285,22 +282,22 @@ function App() {
 
       <div className="bg-gray-100">
         <div className="flex flex-col items-center space-y-5 p-10">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
               <a href="mailto:mcjosquang@gmail.com" target="blank">
                 <MdEmail
-                  size={36}
+                  size={24}
                   className="hover:scale-105 hover:-translate-y-1 duration-300"
                 />
               </a>
               <a href="tel:0948972983">
                 <FaSquarePhone
-                  size={30}
+                  size={20}
                   className="hover:scale-105 hover:-translate-y-1 duration-300"
                 />
               </a>
               <a href="https://www.facebook.com/jostrann" target="blank">
                 <FaFacebook
-                  size={30}
+                  size={20}
                   className=" hover:scale-105 hover:-translate-y-1 duration-300"
                 />
               </a>
@@ -309,7 +306,7 @@ function App() {
                 target="blank"
               >
                 <AiFillInstagram
-                  size={36}
+                  size={24}
                   className="hover:scale-105 hover:-translate-y-1 duration-300"
                 />
               </a>
@@ -383,7 +380,7 @@ function App() {
             className="md:w-1/6 w-3/12 z-10 pl-5"
             data-aos="fade-zoom-in"
             data-aos-duration="500"
-            data-aos-delay="0"
+            data-aos-delay="600"
           />
         </div>
         <div
@@ -459,7 +456,7 @@ function App() {
           id="gallery"
           className="font-bold text-2xl text-gray-500 mb-4 pt-10"
           data-aos="fade-zoom-in"
-          data-aos-duration="500"
+          data-aos-duration="700"
           data-aos-delay="0"
         >
           {translations[language].gallery}
@@ -511,7 +508,7 @@ function App() {
         <div
           className="py-20 px-10 lg:px-32 mx-auto"
           data-aos="fade-zoom-in"
-          data-aos-duration="500"
+          data-aos-duration="700"
           data-aos-delay="0"
         >
           <Swiper
@@ -575,8 +572,11 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="lg:px-32 xl:60px px-10 py-20">
-          <h2 className="text-4xl font-bold mb-4 border-b-4 border-gray-200 mx-auto w-32 p-2">
+        <div id="QA" className="lg:px-32 xl:60px px-10 py-20" 
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="100">
+          <h2 className="text-4xl font-bold mb-4 border-b-4 border-gray-500 mx-auto w-32 p-2">
             Q&A
           </h2>
           <p className="mb-6 text-2xl">
@@ -590,9 +590,9 @@ function App() {
                 onClick={() => toggleQuestion(index)}
               >
                 {openQuestion === index ? (
-                  <IoMdArrowDropup />
+                  <IoMdArrowDropup className="w-10"/>
                 ) : (
-                  <IoMdArrowDropright />
+                  <IoMdArrowDropright className="w-10"/>
                 )}
                 <span>{item.question}</span>
               </div>
@@ -603,7 +603,7 @@ function App() {
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="mt-2 text-left text-gray-600">
+                <div className="mt-2 pl-10 text-left text-gray-600">
                   {item.answer}
                 </div>
               </div>

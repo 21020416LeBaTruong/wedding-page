@@ -56,10 +56,10 @@ export default function Header() {
               <Link to="home" smooth={true} duration={1000} offset={-headerHeight} className="cursor-pointer">
                 <button className="p-2 hover:underline font-serif font-bold">Home</button>
               </Link>
-              <Link to="process" smooth={true} duration={1000} offset={-headerHeight-30} className="cursor-pointer">
+              <Link to="process" smooth={true} duration={1000} offset={-headerHeight} className="cursor-pointer">
                 <button className="p-2 hover:underline font-serif font-bold">Process</button>
               </Link>
-              <Link to="contact" smooth={true} duration={1000} offset={-headerHeight-30} className="cursor-pointer">
+              <Link to="contact" smooth={true} duration={1000} offset={-headerHeight-90} className="cursor-pointer">
                 <button className="p-2 hover:underline font-serif font-bold">Contact me</button>
               </Link>
             </div>

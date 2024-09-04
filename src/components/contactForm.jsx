@@ -1,16 +1,22 @@
-import React, { useRef} from 'react';
+import React, { useEffect, useRef} from 'react';
 import emailjs from 'emailjs-com';
 import { MdEmail } from 'react-icons/md';
 import { FaSquarePhone } from 'react-icons/fa6';
 import translations from './translations';
 import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 import { AiFillInstagram } from 'react-icons/ai';
+import AOS from "aos";
+import "aos/dist/aos.css";
 const ContactForm = ({ language}) => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+        });
+        }, []);
+    const form = useRef();
 
-  const form = useRef();
-
-  const sendEmail = (e) => {
-    e.preventDefault();
+    const sendEmail = (e) => {
+        e.preventDefault();
 
     emailjs.sendForm('service_tk952vq', 'template_0nc1m4p', form.current, 'zAWSrDyQ_36oTUcG5')
       .then((result) => {
@@ -23,7 +29,10 @@ const ContactForm = ({ language}) => {
   };
 
   return (
-    <div id="contact" className="flex justify-center items-center pb-20 px-10 lg:px-32">
+    <div id="contact" className="flex justify-center items-center pb-20 px-10 lg:px-32"
+    data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="100">
         <div className=" bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden " style={{ width: '1000px' }}>
             <div className=" bg-[#E2CAA0] text-white p-8">
                 <h2 className="text-2xl font-bold mb-4">{translations[language].contact.p1}</h2>

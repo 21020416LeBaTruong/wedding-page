@@ -34,7 +34,7 @@ export default function Footer({language}) {
           <Link to="feedback" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
             <span>{translations[language].footer.p5}</span>
           </Link>
-          <Link to="process" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
+          <Link to="process" smooth={true} duration={1000} offset={-60} className="cursor-pointer">
             <span>{translations[language].footer.p3}</span>
           </Link>
           <Link to="gallery" smooth={true} duration={1000} offset={-30} className="cursor-pointer">
@@ -42,6 +42,9 @@ export default function Footer({language}) {
           </Link>
           <Link to="colab" smooth={true} duration={1000} offset={-100} className="cursor-pointer">
             <span>{translations[language].footer.p4}</span>
+          </Link>
+          <Link to="QA" smooth={true} duration={1000} offset={-60} className="cursor-pointer">
+            <span>QA</span>
           </Link>
         </div>
         <div className="flex flex-col col-span-12 md:col-span-2 mt-5 md:mt-0">
