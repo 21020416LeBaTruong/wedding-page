@@ -1,6 +1,5 @@
 import "./App.css";
-// import './index.css'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, FreeMode, Pagination } from "swiper/modules";
@@ -23,14 +22,54 @@ import img8 from "./img/img8.jpg";
 import avt from "./img/colab1.png";
 import flowerImage from "./img/flower.png";
 import top from "./img/top.png";
-import bottom from "./img/bottom.png";
-import addition from "./img/addition.png";
 import "aos/dist/aos.css";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import Timeline from "./components/timeline";
 import translations from "../src/components/translations";
 import { GlobeAltIcon } from "@heroicons/react/outline";
-import arrow from './img/arrow.png'
+import audiovi from "./music/vietnamese.mp3";
+import audioen from "./music/english.mp3";
+import { MdEmail, MdMusicNote, MdMusicOff } from "react-icons/md";
+import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
+import { FaSquarePhone } from "react-icons/fa6";
+import { IoMdArrowDropright, IoMdArrowDropup } from "react-icons/io";
+import { AiFillInstagram } from "react-icons/ai";
+import note from './img/note.gif'
+const questions = [
+  {
+    question:
+      "Will you meet up with us before we make the decision to book you in?",
+    answer:
+      "Most definitely. Please let me know and I will send you my portfolio, sample videos, and photos of previous ceremonies.",
+  },
+  {
+    question:
+      "How early do we need to confirm our booking and pay the non-refundable 50% deposit?",
+    answer:
+      "To ensure availability, it's best to confirm your booking and pay the deposit as soon as possible.",
+  },
+  {
+    question: "How long will the ceremony and wedding reception go for?",
+    answer:
+      "The duration of the ceremony and reception depends on your preferences and the specific plans for your event.",
+  },
+  {
+    question: "Can we see a sample ceremony or video?",
+    answer:
+      "Most definitely. Please let me know and I will send you my portfolio, sample videos, and photos of previous ceremonies.",
+  },
+  {
+    question: "Will you travel?",
+    answer:
+      "Currently, I’m based in Da Nang, Viet Nam but am keen to travel anywhere you want me to go. Some additional charges may apply to cover my travel costs, but we can chat about that.",
+  },
+  {
+    question: "Can you host games during reception?",
+    answer:
+      "Yes, I can host games during the reception to ensure all guests are engaged and have a good time.",
+  },
+];
+
 const comments = [
   {
     comment:
@@ -77,41 +116,46 @@ const gallery = [
 ];
 
 function App() {
+  const [openQuestion, setOpenQuestion] = useState(null);
   const [language, setLanguage] = useState("vi"); // 'en' cho tiếng Anh, 'vi' cho tiếng Việt
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   const toggleLanguage = () => {
     setLanguage((prevLanguage) => (prevLanguage === "en" ? "vi" : "en"));
+    // Nếu nhạc đang phát, tiếp tục phát nhạc sau khi đổi ngôn ngữ
+    if (isPlaying) {
+      setTimeout(() => {
+        audioRef.current.play();
+      }, 0);
+    }
   };
-  const [currentWord, setCurrentWord] = useState(translations[language].type);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [i, setI] = useState(0);
-  const [j, setJ] = useState(0);
-  useEffect(() => {
-    const handleTyping = () => {
-      let updatedWord = currentWord;
-      if (isDeleting) {
-        updatedWord = currentWord.substring(0, j - 1);
-        setJ(j - 1);
-        if (j === 0) {
-          setIsDeleting(false);
-          setI((prev) => (prev + 1) % translations[language].type.length);
-        }
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
       } else {
-        updatedWord = translations[language].type[i].substring(0, j + 1);
-        setJ(j + 1);
-        if (j === translations[language].type[i].length) {
-          setTimeout(() => {
-            setIsDeleting(true);
-          }, 5000); // 5 seconds delay before starting to delete
-        }
+        audioRef.current.play();
       }
-      setCurrentWord(updatedWord);
-    };
+      setIsPlaying(!isPlaying);
+    }
+  };
 
-    const timeoutId = setTimeout(handleTyping, 100);
-
-    return () => clearTimeout(timeoutId);
-  }, [currentWord, isDeleting, i, j, translations[language].type]);
+  useEffect(() => {
+    // Cập nhật nguồn nhạc khi ngôn ngữ thay đổi
+    if (audioRef.current) {
+      audioRef.current.src = language === "vi" ? audiovi : audioen;
+      // Nếu nhạc đang phát, phát lại nhạc mới
+      if (isPlaying) {
+        audioRef.current.play();
+      }
+    }
+  }, [language, isPlaying]);
+  
+  const toggleQuestion = (index) => {
+    setOpenQuestion(openQuestion === index ? null : index);
+  };
   useEffect(() => {
     const handleScroll = () => {
       const header = document.getElementById("fade-text");
@@ -186,41 +230,54 @@ function App() {
     >
       <Header />
       <button
-      onClick={toggleLanguage}
-      className="fixed bottom-10 right-10 z-50 flex items-center justify-center p-2 bg-gray-500 text-white rounded-full hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-500 ease-in-out"
-    >
-      <span
-        className={`mr-2 transform transition-transform duration-500 ${
-          language === "en" ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-        }`}
+        onClick={toggleLanguage}
+        className="fixed bottom-10 right-5 z-10 flex items-center justify-center p-2 bg-gray-500 text-white rounded-full hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-500 ease-in-out"
       >
-        EN
-      </span>
-      <span
-        className={`mr-2 transform transition-transform duration-500 ${
-          language === "vi" ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
-        }`}
+        <span
+          className={`mr-2 transform transition-transform duration-500 ${
+            language === "en"
+              ? "translate-x-0 opacity-100"
+              : "translate-x-4 opacity-0"
+          }`}
+        >
+          EN
+        </span>
+        <span
+          className={`mr-2 transform transition-transform duration-500 ${
+            language === "vi"
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-4 opacity-0"
+          }`}
+        >
+          VI
+        </span>
+        <GlobeAltIcon className="h-6 w-6" />
+      </button>
+
+      {isPlaying ? <img src={note} alt="note" className="fixed bottom-20 right-24 z-20 w-20"/> : <></>}
+      <button
+        onClick={toggleAudio}
+        className={`fixed bottom-10 right-32 z-10 p-3 rounded-full 
+            bg-gray-500 text-white hover:bg-yellow-600
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-500 ease-in-out`}
       >
-        VI
-      </span>
-      <GlobeAltIcon className="h-6 w-6" />
-    </button>
+        {!isPlaying ? <MdMusicOff /> : <MdMusicNote />}
+      </button>
       <div id="home" class="ParallaxVideo">
         <div className="relative h-screen ">
-          <video
-            autoPlay
-            muted
-            loop
-            className="w-full h-full object-cover"
-          >
+          <video autoPlay muted loop className="w-full h-full object-cover">
             <source src={video} type="video/mp4" />
           </video>
+
           <div className="absolute inset-0 flex justify-center h-5/6 items-center p-10">
             <h1
               className="text-white text-4xl md:text-6xl transition-opacity duration-0"
               id="fade-text"
+              // data-aos="fade-up"
+              // data-aos-duration="1500"
+              // data-aos-delay="1000"
             >
-              {currentWord}
+              {translations[language].type[2]}
             </h1>
           </div>
         </div>
@@ -228,21 +285,53 @@ function App() {
 
       <div className="bg-gray-100">
         <div className="flex flex-col items-center space-y-5 p-10">
-          
+            <div className="flex items-center space-x-2">
+              <a href="mailto:mcjosquang@gmail.com" target="blank">
+                <MdEmail
+                  size={36}
+                  className="hover:scale-105 hover:-translate-y-1 duration-300"
+                />
+              </a>
+              <a href="tel:0948972983">
+                <FaSquarePhone
+                  size={30}
+                  className="hover:scale-105 hover:-translate-y-1 duration-300"
+                />
+              </a>
+              <a href="https://www.facebook.com/jostrann" target="blank">
+                <FaFacebook
+                  size={30}
+                  className=" hover:scale-105 hover:-translate-y-1 duration-300"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/jos.inlovestorry/"
+                target="blank"
+              >
+                <AiFillInstagram
+                  size={36}
+                  className="hover:scale-105 hover:-translate-y-1 duration-300"
+                />
+              </a>
+            </div>
           <div
             className="flex items-center"
             data-aos="fade-zoom-in"
             data-aos-duration="500"
             data-aos-delay="0"
           >
-            <h1 className="md:text-7xl text-5xl font-bold transform transition duration-500 w-full font-intro ">
+            <h1 className="md:text-5xl text-4xl font-bold transform transition duration-500 w-full ">
               {translations[language].welcome}
             </h1>
-            
           </div>
-          
+
+          <audio
+            loop
+            ref={audioRef}
+            src={`${language === "vi" ? audiovi : audioen}`}
+          />
           <p
-            className="justify-center font-bold text-center text-xl w-full md:w-3/4 space-y-2 font-dancing "
+            className="justify-center text-center text-lg w-full md:w-3/4 space-y-2"
             data-aos="fade-zoom-in"
             data-aos-duration="500"
             data-aos-delay="200"
@@ -253,7 +342,6 @@ function App() {
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="300"
-              className="font-bold"
             >
               {translations[language].intro.p2}
               <br />
@@ -262,7 +350,6 @@ function App() {
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="400"
-              className="font-bold "
             >
               {translations[language].intro.p3}
               <br />
@@ -271,7 +358,6 @@ function App() {
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="500"
-              className="font-bold "
             >
               {translations[language].intro.p4}
               <br />
@@ -280,9 +366,15 @@ function App() {
               data-aos="fade-zoom-in"
               data-aos-duration="500"
               data-aos-delay="600"
-              className="font-bold "
             >
               {translations[language].intro.p5}
+            </div>
+            <div
+              data-aos="fade-zoom-in"
+              data-aos-duration="500"
+              data-aos-delay="600"
+            >
+              {translations[language].intro.p6}
             </div>
           </p>
           <img
@@ -294,183 +386,8 @@ function App() {
             data-aos-delay="0"
           />
         </div>
-        <div id="aboutme" className="pb-5"></div>
-        <div className="flex justify-center px-10">
-          <div className="flex flex-col md:flex-row justify-center md:space-x-44 items-center w-full md:w-3/4 space-y-5 md:space-y-0">
-            <img
-              src={abc}
-              className="w-full md:w-[450px]"
-              data-aos="fade-right"
-              data-aos-duration="1000"
-              data-aos-delay="0"
-              alt="abc"
-            />
-            <div
-              className="flex flex-col"
-              data-aos="fade-right"
-              data-aos-duration="1000"
-              data-aos-delay="0"
-            >
-              <h1 className="font-bold text-2xl"></h1>
-              <h1 className="font-bold text-5xl font-intro">{translations[language].name}</h1>
-              <span>{translations[language].DOB}</span>
-              <span>{translations[language].Education}</span>
-            </div>
-          </div>
-        </div>
-        <Timeline language={language}/>
-        <div id="service"></div>
-        <div className="flex flex-col justify-center items-center p-10 mx-10 lg:mx-32 text-white bg-black opacity-80">
-          <div className="w-full md:w-1/3 text-center pb-10">
-            <h1
-              className="font-bold text-2xl font-fb"
-              data-aos="fade-right"
-              data-aos-duration="500"
-              data-aos-delay="200"
-            >
-              {translations[language].SV}
-            </h1>
-            <p
-              className="font-fb"
-              data-aos="fade-right"
-              data-aos-duration="500"
-              data-aos-delay="200"
-            >
-              {translations[language].service.p1}
-            </p>
-          </div>
-          <div className="flex flex-col text-center md:flex-row justify-center space-y-5 md:space-y-0 md:space-x-10 px-5 md:px-20">
-            {[translations[language].service.p6, translations[language].service.p7, translations[language].service.p8, translations[language].service.p9].map((service, index) => (
-              <div
-                key={index}
-                data-aos="fade-right"
-                data-aos-duration="500"
-                data-aos-delay="200"
-                className="font-fb"
-              >
-                <h2 className="font-bold text-xl">{service}</h2>
-                <p className="text-sm">
-                  {
-                    [
-                      translations[language].service.p1,
-                      translations[language].service.p2,
-                      translations[language].service.p3,
-                      translations[language].service.p4
-                    ][index]
-                  }
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <h1
-          id="gallery"
-          className="font-bold text-2xl text-gray-500 mb-4 pt-10"
-        >
-          {translations[language].gallery}
-        </h1>
-        <div className="flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center">
-            <div>
-              <div className="grid md:grid-cols-4 md:grid-rows-2 grid-cols-2 gap-2 px-10 lg:px-32 group">
-                {currentImages.map((imgSrc, index) => (
-                  <img
-                    key={index}
-                    src={imgSrc}
-                    alt={`Image ${index + 1}`}
-                    className="w-72 h-auto transition duration-500 ease-in-out opacity-100 group-hover:opacity-50 hover:!opacity-100 hover:scale-105"
-                    onClick={() => openModal(imgSrc)}
-                  />
-                ))}
-              </div>
-
-              {/* Pagination Controls */}
-              {/* <div className="flex justify-center space-x-2 mt-4">
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`px-4 py-2 rounded ${
-                      currentPage === index + 1
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200 text-gray-700"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-              </div> */}
-
-              {/* Modal for enlarged image */}
-              {isModalOpen && (
-                <div
-                  id="wrapper"
-                  className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10"
-                >
-                  <div className="relative group">
-                    <div
-                      // style={{ backgroundImage: `url(${selectedImage})` }}
-                      className="rounded-2xl bg-center bg-cover duration-500"
-                    >
-                      <img
-                        src={selectedImage}
-                        alt="Enlarged view"
-                        className="md:h-screen md:w-auto w-screen"
-                      />
-                    </div>
-                    <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                      <BsChevronCompactLeft onClick={prevSlide} size={30} />
-                    </div>
-                    <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                      <BsChevronCompactRight onClick={nextSlide} size={30} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="pt-10 pb-20 px-10 lg:px-32 mx-auto">
-          <Swiper
-            
-            breakpoints={{
-
-              340: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              950: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-              },
-              1360: {
-                slidesPerView: 5,
-                spaceBetween: 50,
-              },
-            }}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            speed={750}
-            modules={[FreeMode, Pagination, Autoplay]}
-          >
-            {gallery.map((img, index) => (
-              <SwiperSlide key={index} className="mb-10">
-                <div>
-                  <img src={img.image} alt="img" className="w-[100px] md:w-[200px]" />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-
         <div
-          className="lg:px-32 px-10"
+          className="lg:px-32 px-10 py-10"
           data-aos="fade-zoom-in"
           data-aos-duration="500"
           data-aos-delay="200"
@@ -529,8 +446,6 @@ function App() {
                 </div>
               ))}
             </div>
-
-            {/* Bottom-left flower image */}
             <img
               src={flowerImage}
               alt="Flower"
@@ -538,32 +453,165 @@ function App() {
               style={{ transform: "rotate(180deg)" }}
             />
           </div>
-          <div className="py-20">
-            <div className="text-center bg-gray-100 content-around rounded-lg p-5">
-              <div id="colab" className="text-gray-500 mb-5 font-bold text-2xl">
-                {translations[language].colab}
-              </div>
-              <div className="flex flex-wrap justify-around mx-5 md:mx-20">
-                {[logo1, logo1, logo1, logo1].map((logo, index) => (
+        </div>
+        <Timeline language={language} />
+        <h1
+          id="gallery"
+          className="font-bold text-2xl text-gray-500 mb-4 pt-10"
+          data-aos="fade-zoom-in"
+          data-aos-duration="500"
+          data-aos-delay="0"
+        >
+          {translations[language].gallery}
+        </h1>
+        <div
+          className="flex items-center justify-center"
+          data-aos="fade-zoom-in"
+          data-aos-duration="700"
+          data-aos-delay="200"
+        >
+          <div className="flex flex-col items-center justify-center">
+            <div>
+              <div className="grid md:grid-cols-4 md:grid-rows-2 grid-cols-2 gap-2 px-10 lg:px-32 group">
+                {currentImages.map((imgSrc, index) => (
                   <img
                     key={index}
-                    src={logo}
-                    alt={`logo${index + 1}`}
-                    className="w-24 md:w-32 m-2"
+                    src={imgSrc}
+                    alt={`Image ${index + 1}`}
+                    className="w-72 h-auto transition duration-500 ease-in-out opacity-100 group-hover:opacity-50 hover:!opacity-100 hover:scale-105"
+                    onClick={() => openModal(imgSrc)}
                   />
                 ))}
               </div>
+              {isModalOpen && (
+                <div
+                  id="wrapper"
+                  className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10"
+                >
+                  <div className="relative group">
+                    <div className="rounded-2xl bg-center bg-cover duration-500">
+                      <img
+                        src={selectedImage}
+                        alt="Enlarged view"
+                        className="md:h-screen md:w-auto w-screen"
+                      />
+                    </div>
+                    <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                      <BsChevronCompactLeft onClick={prevSlide} size={30} />
+                    </div>
+                    <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                      <BsChevronCompactRight onClick={nextSlide} size={30} />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <ContactForm language={language} />
-        <div className="flex justify-center pb-10 px-10 relative right-5">
-          <img src={arrow} alt="arrow" className="relative -top-3 -left-2 md:w-[80px] w-[40px] md:h-[40px] h-[20px]"/>
-          <a href="" target="blank">
-            <button className="p-2 border border-gray bg-[#E2CAA0] rounded-lg transition duration-500 ease-in-out transform hover:scale-105 hover:bg-[#e2b15e]">{translations[language].question}</button>
-          </a>
+        <div
+          className="py-20 px-10 lg:px-32 mx-auto"
+          data-aos="fade-zoom-in"
+          data-aos-duration="500"
+          data-aos-delay="0"
+        >
+          <Swiper
+            breakpoints={{
+              340: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              950: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1360: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+            freeMode={true}
+            pagination={{
+              clickable: true,
+            }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            speed={750}
+            modules={[FreeMode, Pagination, Autoplay]}
+          >
+            {gallery.map((img, index) => (
+              <SwiperSlide key={index} className="mb-10">
+                <div>
+                  <img
+                    src={img.image}
+                    alt="img"
+                    className="w-[100px] md:w-[200px]"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-        <Footer language={language}/>
+        <div
+          className=""
+          data-aos="fade-zoom-in"
+          data-aos-duration="1000"
+          data-aos-delay="0"
+        >
+          <div className="text-center bg-gray-100 content-around rounded-lg">
+            <div id="colab" className="text-gray-500 mb-5 font-bold text-2xl">
+              {translations[language].colab}
+            </div>
+            <div className="flex flex-wrap justify-around mx-5 md:mx-20">
+              {[logo1, logo1, logo1, logo1].map((logo, index) => (
+                <img
+                  key={index}
+                  src={logo}
+                  alt={`logo${index + 1}`}
+                  className="w-24 md:w-32 m-2"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="lg:px-32 xl:60px px-10 py-20">
+          <h2 className="text-4xl font-bold mb-4 border-b-4 border-gray-200 mx-auto w-32 p-2">
+            Q&A
+          </h2>
+          <p className="mb-6 text-2xl">
+            This Some frequently asked questions are below, if you have another
+            question, please get in contact!
+          </p>
+          {questions.map((item, index) => (
+            <div key={index} className="border-b border-gray-300 mb-4 pb-2">
+              <div
+                className="cursor-pointer font-semibold text-lg flex items-center"
+                onClick={() => toggleQuestion(index)}
+              >
+                {openQuestion === index ? (
+                  <IoMdArrowDropup />
+                ) : (
+                  <IoMdArrowDropright />
+                )}
+                <span>{item.question}</span>
+              </div>
+              <div
+                className={`overflow-hidden transition-all duration-500 ${
+                  openQuestion === index
+                    ? "max-h-[1000px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="mt-2 text-left text-gray-600">
+                  {item.answer}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <ContactForm language={language} />
+        <Footer language={language} />
       </div>
     </div>
   );

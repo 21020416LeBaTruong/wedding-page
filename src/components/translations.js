@@ -4,10 +4,11 @@ const translations = {
       welcome: "We capture the moment",
       intro:{
         p1:"Hello, thank you for visiting.",
-        p2:"My name is Duc Quang, but you can also call me Jos (Joshep). As a wedding MC, I strive to go beyond clichés and templates. I want to tell your story and connect everyone at the event. To do this, I’ll ask questions and learn about you to uncover and share your unique and interesting aspects with your loved ones.",
-        p3:"I am committed to creating a personalized and memorable wedding ceremony for you. Whether you want a more complex event or a grand and emotional ceremony, I am here to fulfill your wishes. I will adjust to meet your standards and desires because it’s your day and your story.",
-        p4:"There are many things to prepare for such a special day, but don’t worry. I am here not only as an MC but also to offer advice and support if you encounter any difficulties. My goal is for you to look beautiful, feel relaxed, and fully experience the emotions of your special day without unnecessary stress.",
-        p5:"I look forward to working with you to create an unforgettable wedding ceremony. Please contact me!",
+        p2:"I am Duc Quang, or you may call me Jos (Joseph). As an MC, my goal is not merely to deliver words that are trite or formulaic. I aim to tell your unique story and connect everyone at the event. To achieve this, I engage in conversations, ask thoughtful questions, and delve into your story to uncover those remarkable and intriguing details that deserve to be shared with your loved ones.",
+        p3:"With a deep desire to create a wedding that is both distinctive and memorable, I will be by your side, crafting a ceremony that aligns with your vision. Whether you envision a ceremony that is more intricate than the standard or one that is grand and emotionally stirring, I am honored and excited to help bring your dreams to life.",
+        p4:"Whatever your desires and standards may be, I will tailor the ceremony to suit you perfectly. After all, this is your day, your story, and I am truly thrilled to be a part of it, telling it with all the reverence and enthusiasm it deserves.",
+        p5:"Preparing for such a special day involves many details, but rest assured, I am here not just as your MC, but also as a guide and advisor if you encounter any challenges. My ultimate wish is for you to shine beautifully, to relax, and to fully experience every emotional nuance of your day without undue stress or concern.",
+        p6:"I eagerly anticipate the opportunity to collaborate with you and create a wedding that will be remembered forever. Please feel free to reach out to me!"
       },
       about: "ABOUT ME",
       name: "Tran Duc Quang",
@@ -25,7 +26,7 @@ const translations = {
         p8:"MC",
         p9:"Decoration",
       },
-      Gallery: "GALLERY",
+      gallery: "GALLERY",
       feedback:"FEEDBACK",
       colab: "PARTNERS",
       contact:{
@@ -43,7 +44,7 @@ const translations = {
       footer: {
         p1:"I will be with you in your special day!",
         p2:"Page",
-        p3: "About me",
+        p3: "Process",
         p4:"Partners",
         p5:"Feedback",
         p6:"Gallery",
@@ -112,10 +113,11 @@ const translations = {
       welcome: "Cùng bắt trọn từng khoảnh khắc",
       intro:{
         p1:"Xin chào, cảm ơn bạn đã ghé thăm.",
-        p2:"Tên tôi là Đức Quang, nhưng bạn cũng có thể gọi tôi là Jos (Joshep). Là một MC đám cưới, tôi luôn cố gắng vượt qua những sáo rỗng và khuôn mẫu thông thường. Tôi muốn kể câu chuyện của bạn và kết nối tất cả mọi người tại sự kiện. Để làm được điều này, tôi sẽ đặt câu hỏi và tìm hiểu về bạn để khám phá và chia sẻ những khía cạnh độc đáo và thú vị của bạn với những người thân yêu.",
-        p3:"Tôi cam kết tạo ra một buổi lễ cưới cá nhân hóa và đáng nhớ cho bạn. Dù bạn muốn một sự kiện phức tạp hơn hay một buổi lễ hoành tráng và xúc động, tôi đều sẵn lòng đáp ứng mong muốn của bạn. Tôi sẽ điều chỉnh để đáp ứng tiêu chuẩn và mong đợi của bạn vì đây là ngày của bạn và câu chuyện của bạn.",
-        p4:"Có rất nhiều thứ cần chuẩn bị cho một ngày đặc biệt như vậy, nhưng đừng lo lắng. Tôi ở đây không chỉ là một MC mà còn sẵn sàng cung cấp lời khuyên và hỗ trợ nếu bạn gặp phải bất kỳ khó khăn nào. Mục tiêu của tôi là giúp bạn trông thật xinh đẹp, cảm thấy thoải mái và tận hưởng trọn vẹn những cảm xúc của ngày đặc biệt mà không phải lo lắng không cần thiết.",
-        p5:"Tôi mong muốn được cùng bạn tạo nên một buổi lễ cưới đáng nhớ. Xin hãy liên hệ với tôi!",
+        p2:"Mình là Đức Quang, hoặc bạn cũng có thể gọi mình là Jos ( Joshep ). Với vai trò là một MC cưới, mình không muốn những gì mình nói chỉ mang ý nghĩa sáo rỗng và rập khuôn, mình muốn kể câu chuyện của bạn và kết nối tất cả mọi người trong bữa tiệc. Vì vậy mình luôn muốn trò chuyện và đặt ra những câu hỏi để có thể tìm ra những điểm tuyệt vời,  những khía cạnh thú vị của bạn  và chia sẻ nó lại với tất cả những người thân yêu của bạn.",
+        p3:"Mong muốn cùng bạn tạo nên một lễ cưới riêng biệt và đáng nhớ,Quang sẽ luôn đồng hành và cùng bạn tạo nên một buổi lễ theo mong muốn của bạn. Vì vậy, nếu bạn muốn một buổi lễ phức tạp hơn so với tiêu chuẩn, Quang  rất vui và sẵn lòng đáp ứng. Nếu bạn muốn một buổi lễ hoàng tráng và cảm động,Quang rất biết ơn và vinh dự cùng bạn thực hiện mong muốn đó.",
+        p4:"Với những gì bạn mong muốn và tiêu chuẩn sẵn có của một buổi lễ Quang sẽ điều chỉnh sao cho phù hợp với bạn. Vì đó là ngày của bạn.",
+        p5:"Sẽ có nhiều thứ cần chuẩn bị cho một ngày đặc biệt như vậy, nhưng đừng lo, Quang không chỉ đồng hành với bạn trong vai trò MC, Quang rất sẵn lòng chia sẻ và tư vấn nếu có bất kì điều gì bạn đang gặp khó khăn. Điều Quang mong muốn là ngày hôm đó bạn sẽ xuất hiện thật đẹp, thật lộng lẫy và tận hưởng những cung khoảnh khắc tuyệt vời.",
+        p6:"Quang  rất mong có thể đồng hành cùng bạn và chúng ta sẽ cùng tạo nên một lễ cưới đáng nhớ. Hãy liên lạc với tôi!"
       },
       about: "VỀ TÔI",
       name: "Trần Đức Quang",
@@ -151,7 +153,7 @@ const translations = {
       footer: {
         p1:"Tôi sẽ đồng hành với bạn trong ngày tuyệt vời nhất!",
         p2:"Page",
-        p3: "Về tôi",
+        p3: "Quy trình",
         p4:"Đối tác",
         p5:"Nhận xét",
         p6:"Trưng bày",

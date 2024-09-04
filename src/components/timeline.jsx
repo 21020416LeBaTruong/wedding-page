@@ -1,14 +1,25 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import translations from './translations'
-const Timeline = ({ language}) => {
+// Import các icon từ react-icons
+import { FaBeer, FaCoffee, FaApple, FaAnchor, FaBicycle } from 'react-icons/fa'; 
+import { LuPartyPopper } from "react-icons/lu";
+import { GrConfigure } from "react-icons/gr";
+import { MdOutlineLibraryBooks } from "react-icons/md";
+import { MdConnectWithoutContact } from "react-icons/md";
+import { GrPlan } from "react-icons/gr";
+import translations from './translations';
+
+const Timeline = ({ language }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
+  // Tạo một mảng các icon để sử dụng
+  const icons = [MdConnectWithoutContact, GrPlan, MdOutlineLibraryBooks, GrConfigure, LuPartyPopper];
+
   return (
-    <div className="p-10 lg:px-32">
+    <div id="process" className="lg:px-32">
       <h1
         className="font-bold text-2xl text-gray-500 text-center p-5"
         data-aos="fade-zoom-in"
@@ -32,8 +43,10 @@ const Timeline = ({ language}) => {
               <p>{step.description}</p>
             </div>
             <div
-              className={`order-${index % 2 === 0 ? "1" : "2"} fixed w-8 h-8 rounded-full bg-gray-200 left-1/2 transform -translate-x-1/2`}
-            ></div>
+              className={`order-${index % 2 === 0 ? "1" : "2"} fixed w-12 h-12 rounded-full bg-gray-200 left-1/2 transform -translate-x-1/2 flex items-center justify-center`}
+            >
+              {React.createElement(icons[index % icons.length], { size: 24 })}
+            </div>
           </div>
         ))}
       </div>
